@@ -18,6 +18,16 @@ const connection = mysql.createConnection({
     database: 'travelweb'
 });
 
+app.get('/users', (req, res) => {
+    connection.query(
+        'SELECT * FROM users',
+        function(err, results, fields) {
+            console.log(results)
+            res.send(results)
+        }
+    )
+})
+
 app.post('/register', jsonParser, function (req, res, next) {
     bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
         // Store hash in your password DB.
