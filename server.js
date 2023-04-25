@@ -24,6 +24,16 @@ app.get('/', (req, res) => {
     res.send('Hello world!!')
 })
 
+app.get('/users', (req, res) => {
+    connection.query(
+        'SELECT * FROM users',
+        function(err, results, fields) {
+            console.log(results)
+            res.send(results)
+        }
+    )
+})
+
 //Register API
 app.post('/register', jsonParser, function (req, res, next) {
     bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
